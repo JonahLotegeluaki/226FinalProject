@@ -1,0 +1,36 @@
+package hospital;
+
+public class TreatmentHistory {
+    private LinkedStack<TreatmentRecord> allRecords;
+
+    public TreatmentHistory() {
+        allRecords = new LinkedStack<>();
+    }
+
+    public void addTreatment(String patientID, String treatment, String timestamp) {
+        // This is a small worked example: create the record, then push it on the stack.
+        TreatmentRecord record = new TreatmentRecord(patientID, treatment, timestamp);
+        allRecords.push(record);
+    }
+
+    public void addTreatment(String patientID, String treatment, String timestamp, String performedBy) {
+        TreatmentRecord record = new TreatmentRecord(patientID, treatment, timestamp, performedBy);
+        allRecords.push(record);
+    }
+
+    /**
+     * Remove and return the newest record in the hospital-wide log.
+     *
+     * @return the newest record, or null when the log is empty
+     */
+    public TreatmentRecord undoLastAction() {
+        return allRecords.pop();
+    }
+
+    /**
+     * Return the complete log newest-first without changing the stack.
+     */
+    public String displayHistory() {
+        return allRecords.toString();
+    }
+}
