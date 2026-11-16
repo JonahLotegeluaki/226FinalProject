@@ -9,28 +9,32 @@ public class MainWindow extends JFrame {
     private CarePanel carePanel;
     private NavigationPanel navigationPanel;
 
+    private JMenuBar menuBar;
+    private JMenuItem openMenuItem;
+    private JMenuItem saveMenuItem;
+    private JMenuItem saveAsMenuItem;
+    private JMenuItem exitMenuItem;
+
     public MainWindow() {
         setTitle("Hospital Management");
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Use a consisten LAF accros platforms
-        try { UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel"); } catch (Exception e) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
             System.err.printf("Error occured setting look and feel: %s\n", e.getMessage());
         }
 
-        //FlowLayout layout = new FlowLayout();
-        //setLayout(layout);
-
         // The menu bar
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         // File
         JMenu fileMenu = new JMenu("File");
-        JMenuItem openMenuItem = new JMenuItem("Open");
-        JMenuItem saveMenuItem = new JMenuItem("Save");
-        JMenuItem saveAsMenuItem = new JMenuItem("Save As");
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.addActionListener(e -> System.exit(0));
+        openMenuItem = new JMenuItem("Open");
+        saveMenuItem = new JMenuItem("Save");
+        saveAsMenuItem = new JMenuItem("Save As");
+        exitMenuItem = new JMenuItem("Exit");
         fileMenu.add(openMenuItem);
         fileMenu.add(saveMenuItem);
         fileMenu.add(saveAsMenuItem);
@@ -53,6 +57,22 @@ public class MainWindow extends JFrame {
 
         add(tabs);
         setVisible(true);
+    }
+
+    public JMenuItem getOpenMenuItem() {
+        return openMenuItem;
+    }
+
+    public JMenuItem getSaveMenuItem() {
+        return saveMenuItem;
+    }
+
+    public JMenuItem getSaveAsMenuItem() {
+        return saveAsMenuItem;
+    }
+
+    public JMenuItem getExitMenuItem() {
+        return exitMenuItem;
     }
 
     // This method updates the GUI members with new data.
