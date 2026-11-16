@@ -1,4 +1,4 @@
-package hospital;
+package structures;
 
 // OPTIONAL =========================
 public class ArrayQueue<T> {

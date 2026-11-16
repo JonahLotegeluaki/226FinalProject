@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import patient.Patient;
+import structures.ArrayQueue;
+import structures.LinkedQueue;
+import structures.LinkedStack;
 
 public class StudentCareTests {
     @Test 

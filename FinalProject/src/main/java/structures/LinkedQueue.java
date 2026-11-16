@@ -1,4 +1,4 @@
-package hospital;
+package structures;
 
 public class LinkedQueue<T> {
     private class Node {

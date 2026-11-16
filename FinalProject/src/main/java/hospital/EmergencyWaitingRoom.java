@@ -1,6 +1,7 @@
 package hospital;
 
 import patient.Patient;
+import structures.LinkedQueue;
 
 public class EmergencyWaitingRoom {
     private LinkedQueue<Patient> level1;

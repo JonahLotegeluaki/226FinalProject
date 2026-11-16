@@ -1,4 +1,4 @@
-package hospital;
+package structures;
 
 public class LinkedStack<T> {
     private class Node {

@@ -1,5 +1,7 @@
 package hospital;
 
+import structures.LinkedStack;
+
 public class TreatmentHistory {
     private LinkedStack<TreatmentRecord> allRecords;
 

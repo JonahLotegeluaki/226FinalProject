@@ -2,6 +2,8 @@ package hospital;
 
 import org.junit.jupiter.api.Test;
 
+import structures.LinkedQueue;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedQueueTest {
