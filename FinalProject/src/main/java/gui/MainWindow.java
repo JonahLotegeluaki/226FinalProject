@@ -1,6 +1,10 @@
 package gui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.*;
+
 import structures.AppData;
 
 public class MainWindow extends JFrame {
@@ -14,6 +18,9 @@ public class MainWindow extends JFrame {
     private JMenuItem saveMenuItem;
     private JMenuItem saveAsMenuItem;
     private JMenuItem exitMenuItem;
+
+    private JLabel clockLabel;
+    private Timer timer;
 
     public MainWindow() {
         setTitle("Hospital Management");
@@ -39,10 +46,16 @@ public class MainWindow extends JFrame {
         fileMenu.add(saveMenuItem);
         fileMenu.add(saveAsMenuItem);
         fileMenu.add(exitMenuItem);
-
         // Add everything
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
+
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+        // Clock setup
+        clockLabel = new JLabel();
+        clockLabel.setFont(clockLabel.getFont().deriveFont(20f));
+        add(clockLabel);
 
         // The tabbed screens
         dashboardPanel = new DashboardPanel();
@@ -57,6 +70,14 @@ public class MainWindow extends JFrame {
 
         add(tabs);
         setVisible(true);
+
+        // Start the clock
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy  HH:mm:ss");
+        clockLabel.setText(LocalDateTime.now().format(formatter));
+        timer = new Timer(1000, e -> {
+            clockLabel.setText(LocalDateTime.now().format(formatter));
+        });
+        timer.start();
     }
 
     public JMenuItem getOpenMenuItem() {
