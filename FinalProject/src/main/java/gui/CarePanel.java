@@ -40,6 +40,20 @@ public class CarePanel extends JPanel {
         leftColumn.add(treatmentBox);
         leftColumn.add(performedByBox);
         leftColumn.add(addTreatmentButton);
+        // Right column
+        JPanel rightColumn = new JPanel();
+        rightColumn.setLayout(new BoxLayout(rightColumn, BoxLayout.Y_AXIS));
+        JLabel historyLabel = styleLabel(new JLabel("Patient History"));
+        JTextArea historyArea = new JTextArea(20, 80);
+        historyArea.setEnabled(false);
+        JButton dischargeButton = new JButton("Discharge Patient");
+        rightColumn.add(historyLabel);
+        rightColumn.add(historyArea);
+        rightColumn.add(dischargeButton);
+
+        bottomPanel.add(leftColumn);
+        bottomPanel.add(rightColumn);
+        add(bottomPanel);
     }
 
     private JLabel styleLabel(JLabel l) {
