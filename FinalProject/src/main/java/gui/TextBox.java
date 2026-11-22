@@ -10,6 +10,10 @@ public class TextBox extends JTextField {
 
     public TextBox(String placeholder) {
         this.placeholder = placeholder;
+
+        // Add constraints to the size of the box
+        setPreferredSize(new Dimension(400, 40));
+        setMaximumSize(new Dimension(1000, 40));
     }
 
     // Override the paintComponent method to display the placeholder text when empty
