@@ -96,6 +96,14 @@ public class MainWindow extends JFrame {
         return exitMenuItem;
     }
 
+    // Return the requested panel if in range
+    // Convenience so there's not 4 getPanel methods
+    public JPanel getPanel(int index) {
+        return index >= 0 && index < 4
+                ? new JPanel[] { dashboardPanel, patientPanel, carePanel, navigationPanel }[index]
+                : null;
+    }
+
     // This method updates the GUI members with new data.
     // It should be called by the main() function when new data is added or loaded.
     // Takes in an AppData struct so that GUI and logic are seperated.

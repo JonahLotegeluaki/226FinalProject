@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -78,5 +79,18 @@ public class PatientPanel extends JPanel {
 
         add(leftPanel);
         add(rightPanel);
+    }
+
+    // Methods for interacting with the search functionality
+    public void setSearchButtonActionListener(ActionListener al) {
+        searchButton.addActionListener(al);
+    }
+
+    public String getPatientSearchID() {
+        return patientSearchBox.getText();
+    }
+
+    public void setSearchResultText(String text) {
+        patientSearchResultArea.setText(text);
     }
 }
