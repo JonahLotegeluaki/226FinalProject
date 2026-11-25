@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import structures.AppData;
-
 public class MainWindow extends JFrame {
     private DashboardPanel dashboardPanel;
     private PatientPanel patientPanel;
@@ -25,8 +23,11 @@ public class MainWindow extends JFrame {
     private JLabel clockLabel;
     private Timer timer;
 
+    private String sessionFilename;
+
     public MainWindow() {
-        setTitle("Hospital Management");
+        sessionFilename = "[unsaved]";
+        setTitle(sessionFilename + " <> Hospital Management");
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -83,6 +84,13 @@ public class MainWindow extends JFrame {
         timer.start();
     }
 
+    public void setSessionModified(boolean val) {
+        if (val)
+            setTitle("*" + sessionFilename + " <> Hospital Management");
+        else
+            setTitle(sessionFilename + " <> Hospital Management");
+    }
+
     public JMenuItem getOpenMenuItem() {
         return openMenuItem;
     }
@@ -99,6 +107,14 @@ public class MainWindow extends JFrame {
         return exitMenuItem;
     }
 
+    public void setSessionName(String text) {
+        if (text == null)
+            sessionFilename = "[unsaved]";
+        else
+            sessionFilename = text;
+        setTitle(sessionFilename + " <> Hospital Management");
+    }
+
     // Return the requested panel if in range
     // Convenience so there's not 4 getPanel methods
     public JPanel getPanel(int index) {
@@ -109,13 +125,28 @@ public class MainWindow extends JFrame {
 
     // Called when Main wants a filename to open
     // Exists here to seperate GUI components
-    public String getFilenameOpen(String dialogTitle, Component parent) {
+    public String getFilenameOpen(String dialogTitle) {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle(dialogTitle);
         fc.setAcceptAllFileFilterUsed(false);
         fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON files (*.json)", "json"));
         fc.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Open in current directory
-        int res = fc.showOpenDialog(parent);
+        int res = fc.showOpenDialog(this);
+        if (res == JFileChooser.APPROVE_OPTION)
+            return fc.getSelectedFile().getAbsolutePath();
+        else
+            return null;
+    }
+
+    // Called when Main wants a filename to save to
+    // Exists here to seperate GUI components
+    public String getFilenameSave(String dialogTitle) {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle(dialogTitle);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON files (*.json)", "json"));
+        fc.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Open in current directory
+        int res = fc.showSaveDialog(this);
         if (res == JFileChooser.APPROVE_OPTION)
             return fc.getSelectedFile().getAbsolutePath();
         else
@@ -124,12 +155,5 @@ public class MainWindow extends JFrame {
 
     public void errorDialog(String title, String message) {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
-    }
-
-    // This method updates the GUI members with new data.
-    // It should be called by the main() function when new data is added or loaded.
-    // Takes in an AppData struct so that GUI and logic are seperated.
-    private void update(AppData data) {
-        // do something eventually
     }
 }
