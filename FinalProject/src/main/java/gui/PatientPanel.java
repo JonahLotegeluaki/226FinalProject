@@ -1,28 +1,57 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class PatientPanel extends JPanel {
+
+    private JPanel leftPanel;
+    private JPanel rightPanel;
+
+    // Left panel components
+    private JLabel patientSearchLabel;
+    private JLabel registrySizeLabel;
+    private TextBox patientSearchBox;
+    private JTextArea patientSearchResultArea;
+    private JButton searchButton;
+
+    // Right panel components
+    private JLabel patientAddLabel;
+    private TextBox patientIDBox;
+    private TextBox firstNameBox;
+    private TextBox lastNameBox;
+    private TextBox triageLevelBox;
+    private TextBox ageBox;
+    private TextBox complaintBox;
+    private TextBox stageBox;
+    private TextBox insuranceIDBox;
+    private TextBox roomBox;
+    private JButton addPatientButton;
+    private JTextArea addPatientResultArea;
+
     public PatientPanel() {
         // This panel is laid out with two columns of components
         GridLayout layout = new GridLayout(1, 2);
         setLayout(layout);
 
-        JPanel leftPanel = new JPanel();
+        leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
         // Left panel components
-        JLabel patientSearchLabel = new JLabel("Search Registry", JLabel.CENTER);
-        JLabel registrySizeLabel = new JLabel("Registry: 0 patients", JLabel.LEFT);
-        TextBox patientSearchBox = new TextBox("Enter Patient ID...");
-        JTextArea patientSearchResultArea = new JTextArea(20, 50);
+        patientSearchLabel = new JLabel("Search Registry", JLabel.CENTER);
+        registrySizeLabel = new JLabel("Registry: 0 patients", JLabel.LEFT);
+        patientSearchBox = new TextBox("Enter Patient ID...");
+        patientSearchResultArea = new JTextArea(20, 50);
         patientSearchResultArea.setEnabled(false);
-        patientSearchResultArea.setText("Patient search results\nPlaceholder");
-        JButton searchButton = new JButton("Search");
+        patientSearchResultArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+        patientSearchResultArea.setText(
+                "  Patient ID:\n        Name:\n         Age:\n   Complaint:\nTriage Level:\n       Stage:\n        Room:\nArrival Hour:\nInsurance ID:");
+        searchButton = new JButton("Search");
         leftPanel.add(patientSearchLabel);
         leftPanel.add(registrySizeLabel);
         leftPanel.add(patientSearchBox);
@@ -30,30 +59,103 @@ public class PatientPanel extends JPanel {
         leftPanel.add(patientSearchResultArea);
 
         // Right panel components
-        JLabel patientAddLabel = new JLabel("Add Patient", JLabel.CENTER);
-        TextBox patientIDBox = new TextBox("*Patient ID");
-        TextBox firstNameBox = new TextBox("*First Name");
-        TextBox lastNameBox = new TextBox("*Last Name");
-        TextBox triageLevelBox = new TextBox("*Triage Level");
-        TextBox ageBox = new TextBox("*Age");
-        TextBox insuraceIDBox = new TextBox("Insurance ID");
-        TextBox roomBox = new TextBox("Room");
-        JButton addPatientButton = new JButton("Add Patient");
-        JTextArea addPatientResultArea = new JTextArea(20, 50);
+        patientAddLabel = new JLabel("Add Patient", JLabel.CENTER);
+        patientIDBox = new TextBox("*Patient ID");
+        firstNameBox = new TextBox("*First Name");
+        lastNameBox = new TextBox("*Last Name");
+        ageBox = new TextBox("*Age");
+        complaintBox = new TextBox("*Primary Complaint");
+        triageLevelBox = new TextBox("*Triage Level (1-4)");
+        stageBox = new TextBox("Process Stage");
+        insuranceIDBox = new TextBox("Insurance ID");
+        roomBox = new TextBox("Room");
+        addPatientButton = new JButton("Add Patient");
+        addPatientResultArea = new JTextArea(20, 50);
         addPatientResultArea.setEnabled(false);
         addPatientResultArea.setText("Patient add results\nPlaceholder");
         rightPanel.add(patientAddLabel);
         rightPanel.add(patientIDBox);
         rightPanel.add(firstNameBox);
         rightPanel.add(lastNameBox);
-        rightPanel.add(triageLevelBox);
         rightPanel.add(ageBox);
-        rightPanel.add(insuraceIDBox);
+        rightPanel.add(complaintBox);
+        rightPanel.add(triageLevelBox);
+        rightPanel.add(stageBox);
+        rightPanel.add(insuranceIDBox);
         rightPanel.add(roomBox);
         rightPanel.add(addPatientButton);
         rightPanel.add(addPatientResultArea);
 
         add(leftPanel);
         add(rightPanel);
+    }
+
+    // Methods for interacting with the search functionality
+    public void setSearchButtonActionListener(ActionListener al) {
+        // First remove the action listeners
+        ActionListener[] als = searchButton.getActionListeners();
+        for (ActionListener a : als)
+            searchButton.removeActionListener(a);
+        searchButton.addActionListener(al);
+    }
+
+    public String getPatientSearchID() {
+        return patientSearchBox.getText();
+    }
+
+    public void setSearchResultText(String text) {
+        patientSearchResultArea.setText(text);
+    }
+
+    // Add Patient functionality
+    public void setAddPatientButtonActionListener(ActionListener al) {
+        ActionListener[] als = addPatientButton.getActionListeners();
+        for (ActionListener a : als)
+            addPatientButton.removeActionListener(a);
+        addPatientButton.addActionListener(al);
+    }
+
+    public TextBox getPatientIDBox() {
+        return patientIDBox;
+    }
+
+    public TextBox getFirstNameBox() {
+        return firstNameBox;
+    }
+
+    public TextBox getLastNameBox() {
+        return lastNameBox;
+    }
+
+    public TextBox getTriageLevelBox() {
+        return triageLevelBox;
+    }
+
+    public TextBox getAgeBox() {
+        return ageBox;
+    }
+
+    public TextBox getComplaintBox() {
+        return complaintBox;
+    }
+
+    public TextBox getStageBox() {
+        return stageBox;
+    }
+
+    public TextBox getInsuranceIDBox() {
+        return insuranceIDBox;
+    }
+
+    public TextBox getRoomBox() {
+        return roomBox;
+    }
+
+    public JButton getAddPatientButton() {
+        return addPatientButton;
+    }
+
+    public JTextArea getAddPatientResultArea() {
+        return addPatientResultArea;
     }
 }
