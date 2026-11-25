@@ -53,9 +53,36 @@ public class AppDataTest {
         })
             ros.addStaff(s);
 
+        HospitalGraph graph = new HospitalGraph();
+        graph.addConnection("Entrance", "WaitingRoom", 0.1);
+        graph.addConnection("Reception", "WaitingRoom", 0.1);
+        graph.addConnection("WaitingRoom", "ER", 0.2);
+        graph.addConnection("ER", "PatientRooms", 0.4);
+        graph.addConnection("WaitingRoom", "Triage", 0.5);
+        graph.addConnection("Triage", "ICU", 1.0);
+        graph.addConnection("Triage", "Surgery", 0.8);
+        graph.addConnection("Triage", "PatientRooms", 1.2);
+        graph.addConnection("Radiology", "Pharmacy", 3.0);
+        graph.addConnection("PatientRooms", "Radiology", 0.2);
+        graph.addConnection("PatientRooms", "Staff", 0.45);
+        graph.addConnection("Admin", "Staff", 0.1);
+        graph.addConnection("Staff", "Radiology", 0.3);
+        graph.addConnection("Radiology", "ICU", 0.3);
+        graph.addConnection("ICU", "Surgery", 0.3);
+        graph.addConnection("PatientRooms", "Lab", 0.5);
+        graph.addConnection("Staff", "Lab", 0.2);
+        graph.addConnection("Lab", "Chapel", 5.0);
+        graph.addConnection("Chapel", "PatientRooms", 0.5);
+        graph.addConnection("Pharmacy", "PatientRooms", 0.8);
+        graph.addConnection("Chapel", "Pharmacy", 0.3);
+        graph.addConnection("Surgery", "Pharmacy", 1.0);
+        graph.addConnection("WaitingRoom", "ER", 0.4);
+        graph.addLocation("Storage");
+
         AppData ad = new AppData();
         ad.registry = reg;
         ad.roster = ros;
+        ad.graph = graph;
         AppData.writeToFile(ad, "sample_data.json");
     }
 }

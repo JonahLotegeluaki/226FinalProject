@@ -1,6 +1,4 @@
-package hospital;
-
-import structures.HospitalGraph;
+package structures;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,8 +72,7 @@ public class HospitalGraphTest {
 
     @Test
     public void testMultipleNeighbors() {
-        Map<String, Double> neighbors =
-                graph.getNeighbors("WaitingRoom");
+        Map<String, Double> neighbors = graph.getNeighbors("WaitingRoom");
 
         assertEquals(4, neighbors.size());
 
@@ -104,8 +101,7 @@ public class HospitalGraphTest {
     public void testDirectShortestPath() {
         assertEquals(
                 List.of("Entrance", "WaitingRoom"),
-                graph.findShortestPath("Entrance", "WaitingRoom")
-        );
+                graph.findShortestPath("Entrance", "WaitingRoom"));
     }
 
     @Test
@@ -113,24 +109,21 @@ public class HospitalGraphTest {
         assertEquals(
                 List.of("Entrance", "WaitingRoom", "ER",
                         "PatientRooms", "Radiology"),
-                graph.findShortestPath("Entrance", "Radiology")
-        );
+                graph.findShortestPath("Entrance", "Radiology"));
     }
 
     @Test
     public void testIndirectPathIsShorter() {
         assertEquals(
                 List.of("Lab", "PatientRooms", "Chapel"),
-                graph.findShortestPath("Lab", "Chapel")
-        );
+                graph.findShortestPath("Lab", "Chapel"));
     }
 
     @Test
     public void testAvoidExpensiveConnection() {
         assertEquals(
                 List.of("Radiology", "PatientRooms", "Pharmacy"),
-                graph.findShortestPath("Radiology", "Pharmacy")
-        );
+                graph.findShortestPath("Radiology", "Pharmacy"));
     }
 
     @Test
@@ -138,43 +131,37 @@ public class HospitalGraphTest {
         assertEquals(
                 List.of("Radiology", "PatientRooms", "ER",
                         "WaitingRoom", "Entrance"),
-                graph.findShortestPath("Radiology", "Entrance")
-        );
+                graph.findShortestPath("Radiology", "Entrance"));
     }
 
     @Test
     public void testSameStartAndEnd() {
         assertEquals(
                 List.of("ER"),
-                graph.findShortestPath("ER", "ER")
-        );
+                graph.findShortestPath("ER", "ER"));
     }
 
     @Test
     public void testDisconnectedLocation() {
         assertTrue(
-                graph.findShortestPath("Entrance", "Storage").isEmpty()
-        );
+                graph.findShortestPath("Entrance", "Storage").isEmpty());
     }
 
     @Test
     public void testDisconnectedStartingLocation() {
         assertTrue(
-                graph.findShortestPath("Storage", "Entrance").isEmpty()
-        );
+                graph.findShortestPath("Storage", "Entrance").isEmpty());
     }
 
     @Test
     public void testInvalidStartingLocation() {
         assertTrue(
-                graph.findShortestPath("FakeRoom", "ER").isEmpty()
-        );
+                graph.findShortestPath("FakeRoom", "ER").isEmpty());
     }
 
     @Test
     public void testInvalidEndingLocation() {
         assertTrue(
-                graph.findShortestPath("ER", "FakeRoom").isEmpty()
-        );
+                graph.findShortestPath("ER", "FakeRoom").isEmpty());
     }
 }
