@@ -83,6 +83,11 @@ public class PatientPanel extends JPanel {
 
     // Methods for interacting with the search functionality
     public void setSearchButtonActionListener(ActionListener al) {
+        // First remove the action listeners
+        ActionListener[] als = searchButton.getActionListeners();
+        if (als.length > 0)
+            for (ActionListener a : als)
+                searchButton.removeActionListener(a);
         searchButton.addActionListener(al);
     }
 
