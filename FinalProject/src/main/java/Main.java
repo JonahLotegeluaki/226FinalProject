@@ -26,11 +26,6 @@ public class Main {
         ad = new AppData();
         graph = new HospitalGraph();
 
-        try {
-            graph.loadGraph("sample_graph.csv");
-        } catch (IOException e) {
-            window.errorDialog("Graph Load Error", e.getMessage());
-        }
         window.getOpenMenuItem().addActionListener(e -> {
             ad = openSession();
             reloadControllers();
@@ -40,8 +35,7 @@ public class Main {
         window.getExitMenuItem().addActionListener(e -> System.exit(0));
 
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
-        ctNavigation = new NavigationController(
-                (NavigationPanel) window.getPanel(3), graph);
+        ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), graph);
     }
 
     static AppData openSession() {
@@ -68,6 +62,6 @@ public class Main {
     // to the new registry, roster, etc.
     static void reloadControllers() {
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
-        ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), graph);
+        ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), ad.graph);
     }
 }
