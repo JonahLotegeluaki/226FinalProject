@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import structures.AppData;
-
 public class MainWindow extends JFrame {
     private DashboardPanel dashboardPanel;
     private PatientPanel patientPanel;
@@ -26,14 +24,12 @@ public class MainWindow extends JFrame {
     private Timer timer;
 
     private String sessionFilename;
-    private boolean sessionModified;
 
     public MainWindow() {
         sessionFilename = "[unsaved]";
         setTitle(sessionFilename + " <> Hospital Management");
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        sessionModified = false;
 
         // Use a consisten LAF accros platforms
         try {
@@ -93,7 +89,6 @@ public class MainWindow extends JFrame {
             setTitle("*" + sessionFilename + " <> Hospital Management");
         else
             setTitle(sessionFilename + " <> Hospital Management");
-        sessionModified = val;
     }
 
     public JMenuItem getOpenMenuItem() {
@@ -145,12 +140,5 @@ public class MainWindow extends JFrame {
 
     public void errorDialog(String title, String message) {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
-    }
-
-    // This method updates the GUI members with new data.
-    // It should be called by the main() function when new data is added or loaded.
-    // Takes in an AppData struct so that GUI and logic are seperated.
-    private void update(AppData data) {
-        // do something eventually
     }
 }
