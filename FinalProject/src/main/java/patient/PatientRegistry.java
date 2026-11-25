@@ -49,7 +49,7 @@ public class PatientRegistry {
         if (size == 0)
             return null;
         for (int i = 0; i < size; i++)
-            if (patientRegistry[i].getPatientID().equals(patientID))
+            if (patientRegistry[i].getPatientID().equalsIgnoreCase(patientID))
                 return patientRegistry[i];
         return null;
     }
