@@ -101,6 +101,9 @@ public class PatientController {
                     }
                     // If all checks pass, add the patient
                     ad.registry.addPatient(p);
+
+                    // The session data was modified.
+                    window.setSessionModified(true);
                 } catch (NumberFormatException ex) {
                     window.errorDialog(
                             "Invalid Input",

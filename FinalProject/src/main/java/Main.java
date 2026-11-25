@@ -38,7 +38,8 @@ public class Main {
             AppData ad = AppData.loadFromFile(filename);
             // Set the session name to only the last part of the file path
             String[] steps = filename.split(System.getProperty("file.separator"));
-            window.setSessionLabelText(steps[steps.length - 1]);
+            window.setSessionName(steps[steps.length - 1]);
+            window.setSessionModified(false);
             return ad;
         } catch (IOException e) {
             window.errorDialog("File Load Error", "Failed to load file \"" + filename + "\": " + e.getMessage());
