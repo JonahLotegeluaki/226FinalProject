@@ -46,14 +46,28 @@ public class HospitalGraph {
     }
 
     public Set<String> getLocations() {
-        return graph.keySet();
+        return new HashSet<>(graph.keySet());
     }
 
-    public int Size() {
+    public int getConnectionCount() {
+        int count = 0;
+        for (Map<String, Double> neighbors : graph.values()) {
+            count += neighbors.size();
+        }
+        return count/2;
+    }
+    
+
+    
+    public int getLocationCount() {
         return graph.size();
     }
 
     public List<String> findShortestPath(String start, String end) {
+
+        if (!containsLocation(start) || !containsLocation(end)) {
+            return new ArrayList<>();
+        }
 
        Map<String, Double> distances = new HashMap<>();
 
@@ -116,27 +130,45 @@ public class HospitalGraph {
         return path;
     }
 
+    
+
 
 
 
     public void loadGraph(String filePath) throws IOException {
-    
-        HospitalGraph hospital = new HospitalGraph();
+
         for (String line : Files.readAllLines(
-                Path.of("src/main/resources/GraphData.txt"))) {
+                Path.of(filePath))) {
 
             String[] parts = line.split(",");
             
             if (parts.length == 1) {
-                hospital.addLocation(parts[0]);
+                addLocation(parts[0]);
             } else if (parts.length == 3) {
 
                 String from = parts[0];
                 String to = parts[1];
                 double weight = Double.parseDouble(parts[2]);
 
-                hospital.addConnection(from, to, weight);
+                addConnection(from, to, weight);
             }
         }
+    }
+
+
+
+    public double getRouteCost(List<String> path) {
+
+        double cost = 0.0;
+
+        for (int i = 0; i < path.size() - 1; i++) {
+
+            String from = path.get(i);
+            String to = path.get(i + 1);
+
+            cost += graph.get(from).get(to);
+        }
+
+        return cost;
     }
 }
