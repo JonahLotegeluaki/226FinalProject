@@ -9,7 +9,7 @@ public class EmergencyWaitingRoom {
     private LinkedQueue<Patient> level3;
     private LinkedQueue<Patient> level4;
     // Necesarry for the optional bounded waiting lanes ==========
-    private final int queueCapacity[] = {3, 5, 10, 10};
+    private final int queueCapacity[] = { 3, 5, 10, 10 };
 
     public EmergencyWaitingRoom() {
         level1 = new LinkedQueue<>();
@@ -24,25 +24,31 @@ public class EmergencyWaitingRoom {
      * @return true if added; false for null patients or levels outside 1-4
      */
     public boolean addPatient(Patient patient) {
-        if (patient == null) return false;
+        if (patient == null)
+            return false;
         int level = patient.getTriageLevel();
-        if (level < 1 || level > 4) return false;
+        if (level < 1 || level > 4)
+            return false;
         // really could do this more programatically
         switch (level) {
             case 1:
-                if (level1.size() == queueCapacity[0]) return false;
+                if (level1.size() == queueCapacity[0])
+                    return false;
                 level1.enqueue(patient);
                 break;
             case 2:
-                if (level2.size() == queueCapacity[1]) return false;
+                if (level2.size() == queueCapacity[1])
+                    return false;
                 level2.enqueue(patient);
                 break;
             case 3:
-                if (level3.size() == queueCapacity[2]) return false;
+                if (level3.size() == queueCapacity[2])
+                    return false;
                 level3.enqueue(patient);
                 break;
             case 4:
-                if (level4.size() == queueCapacity[3]) return false;
+                if (level4.size() == queueCapacity[3])
+                    return false;
                 level4.enqueue(patient);
         }
         return true;
@@ -54,24 +60,43 @@ public class EmergencyWaitingRoom {
     public Patient nextPatient() {
         Patient p = null;
         p = level1.dequeue();
-        if (p != null) return p;
+        if (p != null)
+            return p;
         p = level2.dequeue();
-        if (p != null) return p;
+        if (p != null)
+            return p;
         p = level3.dequeue();
-        if (p != null) return p;
+        if (p != null)
+            return p;
         p = level4.dequeue();
         return p;
     }
 
     public boolean isEmpty() {
         if (level1.isEmpty() &&
-            level2.isEmpty() &&
-            level3.isEmpty() &&
-            level4.isEmpty()) return true;
+                level2.isEmpty() &&
+                level3.isEmpty() &&
+                level4.isEmpty())
+            return true;
         return false;
     }
 
     public int size() {
         return level1.size() + level2.size() + level3.size() + level4.size();
+    }
+
+    public Integer queueLevelSize(int level) {
+        switch (level) {
+            case 1:
+                return level1.size();
+            case 2:
+                return level2.size();
+            case 3:
+                return level3.size();
+            case 4:
+                return level4.size();
+            default:
+                return null;
+        }
     }
 }

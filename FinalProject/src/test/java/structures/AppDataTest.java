@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
+import hospital.EmergencyWaitingRoom;
 import patient.Patient;
 import patient.PatientRegistry;
 import staff.Seniority;
@@ -87,6 +88,10 @@ public class AppDataTest {
         ad.registry = reg;
         ad.roster = ros;
         ad.graph = graph;
+        ad.waitingRoom = new EmergencyWaitingRoom();
+        // Fill the waiting room
+        for (Patient p : reg.getPatientRegistry())
+            ad.waitingRoom.addPatient(p);
         AppData.writeToFile(ad, "sample_data.json");
     }
 
@@ -135,6 +140,10 @@ public class AppDataTest {
         ad.registry = reg;
         ad.roster = ros;
         ad.graph = graph;
+        ad.waitingRoom = new EmergencyWaitingRoom();
+        // Fill the waiting room
+        for (Patient p : reg.getPatientRegistry())
+            ad.waitingRoom.addPatient(p);
         AppData.writeToFile(ad, "custom_data.json");
     }
 }
