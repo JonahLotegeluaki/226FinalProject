@@ -125,13 +125,28 @@ public class MainWindow extends JFrame {
 
     // Called when Main wants a filename to open
     // Exists here to seperate GUI components
-    public String getFilenameOpen(String dialogTitle, Component parent) {
+    public String getFilenameOpen(String dialogTitle) {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle(dialogTitle);
         fc.setAcceptAllFileFilterUsed(false);
         fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON files (*.json)", "json"));
         fc.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Open in current directory
-        int res = fc.showOpenDialog(parent);
+        int res = fc.showOpenDialog(this);
+        if (res == JFileChooser.APPROVE_OPTION)
+            return fc.getSelectedFile().getAbsolutePath();
+        else
+            return null;
+    }
+
+    // Called when Main wants a filename to save to
+    // Exists here to seperate GUI components
+    public String getFilenameSave(String dialogTitle) {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle(dialogTitle);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON files (*.json)", "json"));
+        fc.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Open in current directory
+        int res = fc.showSaveDialog(this);
         if (res == JFileChooser.APPROVE_OPTION)
             return fc.getSelectedFile().getAbsolutePath();
         else
