@@ -31,7 +31,6 @@ public class Main {
 
     static AppData openSession() {
         String filename = window.getFilenameOpen("Open a session", window);
-        System.out.println(filename);
         try {
             AppData ad = AppData.loadFromFile(filename);
             return ad;

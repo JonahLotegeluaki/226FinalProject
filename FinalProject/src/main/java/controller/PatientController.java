@@ -7,11 +7,11 @@ import structures.AppData;
 
 public class PatientController {
     public PatientController(PatientPanel panel, AppData ad) {
+        // Set up the patient search
         panel.setSearchButtonActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = panel.getPatientSearchID();
-                System.out.printf("Searching for ID: %s\n", id); // DEBUG
                 if (ad.registry == null) {
                     panel.setSearchResultText("Cannot find patient \"" + id + "\": Registry is empty");
                     return;
@@ -32,7 +32,6 @@ public class PatientController {
                             p.getAssignedRoom(),
                             p.getArrivalHour(),
                             p.getInsuranceID());
-                    System.out.println(text); // DEBUG
                     panel.setSearchResultText(text);
                 }
             }
