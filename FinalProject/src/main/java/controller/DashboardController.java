@@ -13,4 +13,10 @@ public class DashboardController {
         this.panel = panel;
         this.data = data;
     }
+
+    // Method to update the dashboard's values
+    // Called when any code has assigned staff, moved a patient, etc.
+    public void updateDashboard() {
+
+    }
 }
