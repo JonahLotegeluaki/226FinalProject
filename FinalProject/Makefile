@@ -3,7 +3,7 @@ all:
 	mvn clean compile
 
 run:
-	mvn compile; java -cp target/classes Main
+	mvn compile exec:java -Dexec.mainClass="Main"
 
 test:
 	mvn clean compile test
