@@ -1,9 +1,12 @@
 package gui;
 
+import java.awt.Component;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import structures.AppData;
 
@@ -102,6 +105,25 @@ public class MainWindow extends JFrame {
         return index >= 0 && index < 4
                 ? new JPanel[] { dashboardPanel, patientPanel, carePanel, navigationPanel }[index]
                 : null;
+    }
+
+    // Called when Main wants a filename to open
+    // Exists here to seperate GUI components
+    public String getFilenameOpen(String dialogTitle, Component parent) {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle(dialogTitle);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON files (*.json)", "json"));
+        fc.setCurrentDirectory(new File(System.getProperty("user.dir"))); // Open in current directory
+        int res = fc.showOpenDialog(parent);
+        if (res == JFileChooser.APPROVE_OPTION)
+            return fc.getSelectedFile().getAbsolutePath();
+        else
+            return null;
+    }
+
+    public void errorDialog(String title, String message) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     // This method updates the GUI members with new data.
