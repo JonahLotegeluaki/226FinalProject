@@ -25,10 +25,13 @@ public class MainWindow extends JFrame {
     private JLabel clockLabel;
     private Timer timer;
 
+    private JLabel sessionFilenameLabel;
+
     public MainWindow() {
         setTitle("Hospital Management");
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        sessionFilenameLabel = new JLabel("No session loaded");
 
         // Use a consisten LAF accros platforms
         try {
@@ -54,6 +57,8 @@ public class MainWindow extends JFrame {
         setJMenuBar(menuBar);
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+        add(sessionFilenameLabel);
 
         // Clock setup
         clockLabel = new JLabel();
@@ -97,6 +102,10 @@ public class MainWindow extends JFrame {
 
     public JMenuItem getExitMenuItem() {
         return exitMenuItem;
+    }
+
+    public void setSessionLabelText(String text) {
+        sessionFilenameLabel.setText(text);
     }
 
     // Return the requested panel if in range
