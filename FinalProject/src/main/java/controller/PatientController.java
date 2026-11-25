@@ -18,9 +18,23 @@ public class PatientController {
                 }
                 Patient p = ad.registry.getPatientByID(id);
                 if (p == null)
-                    panel.setSearchResultText("Cannot find patient \"" + id + "\": Registry is empty");
-                else
-                    panel.setSearchResultText(p.toString());
+                    panel.setSearchResultText("Cannot find patient \"" + id + "\": Could not find in registry");
+                else {
+                    String text = String.format(
+                            "  Patient ID: %s\n        Name: %s %s\n         Age: %d\n   Complaint: %s\nTriage Level: %d\n       Stage: %s\n        Room: %s\nArrival Hour: %d\nInsurance ID: %s",
+                            p.getPatientID(),
+                            p.getFirstName(),
+                            p.getLastName(),
+                            p.getAge(),
+                            p.getChiefComplaint(),
+                            p.getTriageLevel(),
+                            p.getCurrentStage(),
+                            p.getAssignedRoom(),
+                            p.getArrivalHour(),
+                            p.getInsuranceID());
+                    System.out.println(text); // DEBUG
+                    panel.setSearchResultText(text);
+                }
             }
         });
     }

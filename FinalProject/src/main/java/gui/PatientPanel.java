@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -45,7 +46,9 @@ public class PatientPanel extends JPanel {
         patientSearchBox = new TextBox("Enter Patient ID...");
         patientSearchResultArea = new JTextArea(20, 50);
         patientSearchResultArea.setEnabled(false);
-        patientSearchResultArea.setText("Patient search results\nPlaceholder");
+        patientSearchResultArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+        patientSearchResultArea.setText(
+                "  Patient ID:\n        Name:\n         Age:\n   Complaint:\nTriage Level:\n       Stage:\n        Room:\nArrival Hour:\nInsurance ID:");
         searchButton = new JButton("Search");
         leftPanel.add(patientSearchLabel);
         leftPanel.add(registrySizeLabel);
