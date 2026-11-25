@@ -26,7 +26,7 @@ public class Main {
         window.getSaveAsMenuItem().addActionListener(e -> saveSessionAs());
         window.getExitMenuItem().addActionListener(e -> System.exit(0));
 
-        ctPatient = new PatientController((PatientPanel) window.getPanel(1), ad);
+        ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
     }
 
     static AppData openSession() {
@@ -52,6 +52,6 @@ public class Main {
     // the controllers need to be regenerated with references
     // to the new registry, roster, etc.
     static void reloadControllers() {
-        ctPatient = new PatientController((PatientPanel) window.getPanel(1), ad);
+        ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
     }
 }

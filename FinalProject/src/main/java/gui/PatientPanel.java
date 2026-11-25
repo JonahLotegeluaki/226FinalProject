@@ -25,7 +25,9 @@ public class PatientPanel extends JPanel {
     private TextBox lastNameBox;
     private TextBox triageLevelBox;
     private TextBox ageBox;
-    private TextBox insuraceIDBox;
+    private TextBox complaintBox;
+    private TextBox stageBox;
+    private TextBox insuranceIDBox;
     private TextBox roomBox;
     private JButton addPatientButton;
     private JTextArea addPatientResultArea;
@@ -61,9 +63,11 @@ public class PatientPanel extends JPanel {
         patientIDBox = new TextBox("*Patient ID");
         firstNameBox = new TextBox("*First Name");
         lastNameBox = new TextBox("*Last Name");
-        triageLevelBox = new TextBox("*Triage Level");
         ageBox = new TextBox("*Age");
-        insuraceIDBox = new TextBox("Insurance ID");
+        complaintBox = new TextBox("*Primary Complaint");
+        triageLevelBox = new TextBox("*Triage Level (1-4)");
+        stageBox = new TextBox("Process Stage");
+        insuranceIDBox = new TextBox("Insurance ID");
         roomBox = new TextBox("Room");
         addPatientButton = new JButton("Add Patient");
         addPatientResultArea = new JTextArea(20, 50);
@@ -73,9 +77,11 @@ public class PatientPanel extends JPanel {
         rightPanel.add(patientIDBox);
         rightPanel.add(firstNameBox);
         rightPanel.add(lastNameBox);
-        rightPanel.add(triageLevelBox);
         rightPanel.add(ageBox);
-        rightPanel.add(insuraceIDBox);
+        rightPanel.add(complaintBox);
+        rightPanel.add(triageLevelBox);
+        rightPanel.add(stageBox);
+        rightPanel.add(insuranceIDBox);
         rightPanel.add(roomBox);
         rightPanel.add(addPatientButton);
         rightPanel.add(addPatientResultArea);
@@ -88,9 +94,8 @@ public class PatientPanel extends JPanel {
     public void setSearchButtonActionListener(ActionListener al) {
         // First remove the action listeners
         ActionListener[] als = searchButton.getActionListeners();
-        if (als.length > 0)
-            for (ActionListener a : als)
-                searchButton.removeActionListener(a);
+        for (ActionListener a : als)
+            searchButton.removeActionListener(a);
         searchButton.addActionListener(al);
     }
 
@@ -100,5 +105,57 @@ public class PatientPanel extends JPanel {
 
     public void setSearchResultText(String text) {
         patientSearchResultArea.setText(text);
+    }
+
+    // Add Patient functionality
+    public void setAddPatientButtonActionListener(ActionListener al) {
+        ActionListener[] als = addPatientButton.getActionListeners();
+        for (ActionListener a : als)
+            addPatientButton.removeActionListener(a);
+        addPatientButton.addActionListener(al);
+    }
+
+    public TextBox getPatientIDBox() {
+        return patientIDBox;
+    }
+
+    public TextBox getFirstNameBox() {
+        return firstNameBox;
+    }
+
+    public TextBox getLastNameBox() {
+        return lastNameBox;
+    }
+
+    public TextBox getTriageLevelBox() {
+        return triageLevelBox;
+    }
+
+    public TextBox getAgeBox() {
+        return ageBox;
+    }
+
+    public TextBox getComplaintBox() {
+        return complaintBox;
+    }
+
+    public TextBox getStageBox() {
+        return stageBox;
+    }
+
+    public TextBox getInsuranceIDBox() {
+        return insuranceIDBox;
+    }
+
+    public TextBox getRoomBox() {
+        return roomBox;
+    }
+
+    public JButton getAddPatientButton() {
+        return addPatientButton;
+    }
+
+    public JTextArea getAddPatientResultArea() {
+        return addPatientResultArea;
     }
 }
