@@ -15,8 +15,8 @@ public class Main {
 
     private static MainWindow window;
     private static AppData ad;
-    private static PatientController ctPatient;
     private static HospitalGraph graph;
+    private static PatientController ctPatient;
     private static NavigationController ctNavigation;
 
     public static void main(String[] args) {
@@ -26,11 +26,8 @@ public class Main {
         ad = new AppData();
         graph = new HospitalGraph();
 
-        System.out.println(System.getProperty("user.dir"));
-
-
         try {
-            graph.loadGraph("FinalProject/src/main/java/resources/GraphData.txt");
+            graph.loadGraph("sample_graph.csv");
         } catch (IOException e) {
             window.errorDialog("Graph Load Error", e.getMessage());
         }
@@ -44,7 +41,7 @@ public class Main {
 
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
         ctNavigation = new NavigationController(
-        (NavigationPanel) window.getPanel(3), graph);
+                (NavigationPanel) window.getPanel(3), graph);
     }
 
     static AppData openSession() {
@@ -71,5 +68,6 @@ public class Main {
     // to the new registry, roster, etc.
     static void reloadControllers() {
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
+        ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), graph);
     }
 }

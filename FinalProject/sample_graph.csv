@@ -1,9 +1,9 @@
-Entrance,WaitingRoom,0.1 
+Entrance,WaitingRoom,0.1
 Reception,WaitingRoom,0.1
 WaitingRoom,ER,0.2
 ER,PatientRooms,0.4
-WaitingRoom,Triage,0.5 
-Triage,ICU,1 
+WaitingRoom,Triage,0.5
+Triage,ICU,1
 Triage,Surgery,0.8
 Triage,PatientRooms,1.2
 Radiology,Pharmacy,3
