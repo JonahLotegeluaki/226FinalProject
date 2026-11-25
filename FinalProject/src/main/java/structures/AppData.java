@@ -11,10 +11,12 @@ import com.google.gson.*;
 public class AppData {
     public PatientRegistry registry;
     public StaffRoster roster;
+    public HospitalGraph graph;
 
     public AppData() {
         registry = null;
         roster = null;
+        graph = null;
     }
 
     // Expects a JSON file to contain data for an 'AppData'
