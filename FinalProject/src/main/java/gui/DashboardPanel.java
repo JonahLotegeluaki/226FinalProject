@@ -34,4 +34,20 @@ public class DashboardPanel extends JPanel {
         add(leftPanel);
         add(rightPanel);
     }
+
+    public JLabel getWaitingRoomLabel() {
+        return waitingRoomLabel;
+    }
+
+    public JTextArea getWaitingRoomArea() {
+        return waitingRoomArea;
+    }
+
+    public JLabel getStaffLabel() {
+        return staffLabel;
+    }
+
+    public JTextArea getStaffArea() {
+        return staffArea;
+    }
 }
