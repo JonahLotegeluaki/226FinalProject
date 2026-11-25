@@ -5,6 +5,7 @@ import gui.NavigationPanel;
 import structures.HospitalGraph;
 
 import java.util.List;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,6 +20,10 @@ public class NavigationController {
 
         loadLocations();
         updateGraphCounts();
+
+        // Clear old action listeners
+        for (ActionListener al : panel.getCalculateRouteButton().getActionListeners())
+            panel.getCalculateRouteButton().removeActionListener(al);
 
         panel.getCalculateRouteButton().addActionListener(e -> {
             calculateRoute();
