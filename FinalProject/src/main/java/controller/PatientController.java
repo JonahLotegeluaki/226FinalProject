@@ -101,6 +101,8 @@ public class PatientController {
                     }
                     // If all checks pass, add the patient
                     ad.registry.addPatient(p);
+                    // Add to waiting room, they haven't been assigned yet
+                    ad.waitingRoom.addPatient(p);
 
                     // The session data was modified.
                     window.setSessionModified(true);
