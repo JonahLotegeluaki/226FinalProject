@@ -8,15 +8,19 @@ import java.io.IOException;
 
 import com.google.gson.*;
 
+import hospital.EmergencyWaitingRoom;
+
 public class AppData {
     public PatientRegistry registry;
     public StaffRoster roster;
     public HospitalGraph graph;
+    public EmergencyWaitingRoom waitingRoom;
 
     public AppData() {
         registry = null;
         roster = null;
         graph = null;
+        waitingRoom = null;
     }
 
     // Expects a JSON file to contain data for an 'AppData'

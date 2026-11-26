@@ -1,10 +1,10 @@
-import controller.NavigationController;
 import gui.NavigationPanel;
 import structures.HospitalGraph;
 
 import java.io.IOException;
 
-import controller.PatientController;
+import controller.*;
+import gui.DashboardPanel;
 import gui.MainWindow;
 import gui.PatientPanel;
 // The AppData class stores all the data for a session.
@@ -16,16 +16,19 @@ public class Main {
     private static MainWindow window;
     private static AppData ad;
     private static HospitalGraph graph;
+    private static DashboardController ctDasboard;
     private static PatientController ctPatient;
+    private static NavigationController ctNavigation;
     // If null, this will upon saving prompt the user to enter a save filename
     private static String sessionFilename;
-    private static NavigationController ctNavigation;
 
     public static void main(String[] args) {
         sessionFilename = null;
         // Set up window and add event listeners for menu bar items
         // The controller classes will handle events for the panels
-        window = new MainWindow();
+        window = new MainWindow(() -> {
+            ctDasboard.updateDashboard();
+        });
         ad = new AppData();
         graph = new HospitalGraph();
 
@@ -37,6 +40,14 @@ public class Main {
         window.getSaveAsMenuItem().addActionListener(e -> saveSessionAs());
         window.getExitMenuItem().addActionListener(e -> System.exit(0));
 
+        // Update the dashboard whenever it is switched to
+        window.getTabs().addChangeListener(e -> {
+            if (window.getTabs().getSelectedComponent() == window.getPanel(0))
+                ctDasboard.updateDashboard();
+        });
+
+        // Create controllers
+        ctDasboard = new DashboardController((DashboardPanel) window.getPanel(0), ad);
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
         ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), graph);
     }
@@ -92,6 +103,7 @@ public class Main {
     // the controllers need to be regenerated with references
     // to the new registry, roster, etc.
     static void reloadControllers() {
+        ctDasboard = new DashboardController((DashboardPanel) window.getPanel(0), ad);
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
         ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), ad.graph);
     }
