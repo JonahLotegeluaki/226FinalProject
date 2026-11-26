@@ -26,7 +26,9 @@ public class Main {
         sessionFilename = null;
         // Set up window and add event listeners for menu bar items
         // The controller classes will handle events for the panels
-        window = new MainWindow();
+        window = new MainWindow(() -> {
+            ctDasboard.updateDashboard();
+        });
         ad = new AppData();
         graph = new HospitalGraph();
 
@@ -38,6 +40,13 @@ public class Main {
         window.getSaveAsMenuItem().addActionListener(e -> saveSessionAs());
         window.getExitMenuItem().addActionListener(e -> System.exit(0));
 
+        // Update the dashboard whenever it is switched to
+        window.getTabs().addChangeListener(e -> {
+            if (window.getTabs().getSelectedComponent() == window.getPanel(0))
+                ctDasboard.updateDashboard();
+        });
+
+        // Create controllers
         ctDasboard = new DashboardController((DashboardPanel) window.getPanel(0), ad);
         ctPatient = new PatientController(window, (PatientPanel) window.getPanel(1), ad);
         ctNavigation = new NavigationController((NavigationPanel) window.getPanel(3), graph);

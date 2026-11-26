@@ -99,10 +99,13 @@ public class PatientController {
                         window.errorDialog("Duplicate Patient", "The specified patient ID already exists.");
                         return;
                     }
+                    // Add to waiting room, they haven't been assigned yet
+                    if (!ad.waitingRoom.addPatient(p)) {
+                        window.errorDialog("Triage Lane Full", "Triage lane " + p.getTriageLevel() + " is full.");
+                        return; // Do not add to registry
+                    }
                     // If all checks pass, add the patient
                     ad.registry.addPatient(p);
-                    // Add to waiting room, they haven't been assigned yet
-                    ad.waitingRoom.addPatient(p);
 
                     // The session data was modified.
                     window.setSessionModified(true);

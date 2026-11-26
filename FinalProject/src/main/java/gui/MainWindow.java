@@ -20,12 +20,15 @@ public class MainWindow extends JFrame {
     private JMenuItem saveAsMenuItem;
     private JMenuItem exitMenuItem;
 
+    private JTabbedPane tabs;
     private JLabel clockLabel;
     private Timer timer;
 
     private String sessionFilename;
 
-    public MainWindow() {
+    // timerFn is a way for Main to add a function to run every second (dashboard
+    // update)
+    public MainWindow(Runnable timerFn) {
         sessionFilename = "[unsaved]";
         setTitle(sessionFilename + " <> Hospital Management");
         setSize(1000, 800);
@@ -66,7 +69,7 @@ public class MainWindow extends JFrame {
         patientPanel = new PatientPanel();
         carePanel = new CarePanel();
         navigationPanel = new NavigationPanel();
-        JTabbedPane tabs = new JTabbedPane();
+        tabs = new JTabbedPane();
         tabs.addTab("Dashboard", dashboardPanel);
         tabs.addTab("Patient", patientPanel);
         tabs.addTab("Care", carePanel);
@@ -80,6 +83,7 @@ public class MainWindow extends JFrame {
         clockLabel.setText(LocalDateTime.now().format(formatter));
         timer = new Timer(1000, e -> {
             clockLabel.setText(LocalDateTime.now().format(formatter));
+            timerFn.run();
         });
         timer.start();
     }
@@ -105,6 +109,10 @@ public class MainWindow extends JFrame {
 
     public JMenuItem getExitMenuItem() {
         return exitMenuItem;
+    }
+
+    public JTabbedPane getTabs() {
+        return tabs;
     }
 
     public void setSessionName(String text) {
